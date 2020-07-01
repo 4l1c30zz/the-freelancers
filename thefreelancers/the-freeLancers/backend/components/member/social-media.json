@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_member_social_medias",
+  "info": {
+    "name": "socialMedia",
+    "icon": "arrow-alt-circle-right"
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "linkedIn": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "telegram": {
+      "type": "string"
+    },
+    "github": {
+      "type": "string"
+    }
+  }
+}
