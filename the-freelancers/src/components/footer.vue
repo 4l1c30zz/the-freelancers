@@ -1,13 +1,10 @@
 <template>
   <footer id="site-footer">
-
     <router-link to="/">
       <logo />
     </router-link>
-
   </footer>
 </template>
-
 
 <script>
 import logo from "@/components/logo";
@@ -34,10 +31,9 @@ export default {
   align-content: center;
   max-width: 100%;
   padding: 40px;
-clip-path: polygon(0 16%, 100% 0%, 100% 100%, 0 100%);
+  clip-path: polygon(0 16%, 100% 0%, 100% 100%, 0 100%);
   .logo {
     max-width: 20vh;
   }
 }
-
 </style>

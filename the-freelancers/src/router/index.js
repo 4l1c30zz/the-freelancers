@@ -12,8 +12,8 @@ const routes = [
   },
   {
     path: "/member/:id",
-    component: () => import('../views/member.vue')
-  },
+    component: () => import("../views/member.vue")
+  }
 ];
 
 const router = new VueRouter({

@@ -10,14 +10,11 @@ export default {
   name: "App",
 
   components: {
-    footerComponent,
-  },
-
+    footerComponent
+  }
 };
-
 </script>
 <style lang="scss">
 @import "@/scss/_variables.scss";
 @import "@/scss/_functions.scss";
-
 </style>
