@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Sarpanch:wght@400;500;700;900&family=VT323&display=swap');
+
+$fonts: (
+    "pixel_font": "VT323",
+    "stencil_font": "Saira Stencil One",
+    "base_font": "Sarpanch"
+);
+
+$font_sizes: ("f14": 14px,
+    "f16": 16px,
+    "f18" : 18px,
+    "f20": 20px,
+);
+
+$font_weights: ("light" : 300,
+    "regular" : 400,
+    "medium" : 500,
+    "bold": 600,
+    "bolder": 700,
+    "boldest": 900,
+);
+$line_heights: ("_minimal": 1em,
+    "_default": 1.2em,
+    "_bigger": 1.3em,
+);
+$colors: (
+    "_black": #273B3B,
+    "_pink": #FDE2FF,
+    "_green": #AFFC41,
+    "_violet": #847996,
+    "_blue": #0496FF,
+    "_cyan": #34E4EA,
+);

@@ -1,0 +1,39 @@
+@function font_family($key) {
+    @if not map-has-key($fonts, $key) {
+        @warn "Key `#{$key}` not found in $fonts map.";
+    }
+
+    @return map-get($fonts, $key);
+}
+
+@function color($key) {
+    @if not map-has-key($colors, $key) {
+        @warn "Key `#{$key}` not found in $colors map.";
+    }
+
+    @return map-get($colors, $key);
+}
+
+@function font_size($key) {
+    @if not map-has-key($font_sizes, $key) {
+        @warn "Key `#{$key}` not found.";
+    }
+
+    @return map-get($font_sizes, $key);
+}
+
+@function font_weight($key) {
+    @if not map-has-key($font_weights, $key) {
+        @warn "Key `#{$key}` not found.";
+    }
+
+    @return map-get($font_weights, $key);
+}
+
+@function line-height($key) {
+    @if not map-has-key($line_heights, $key) {
+        @warn "Key `#{$key}` not found.";
+    }
+
+    @return map-get($line_heights, $key);
+}
