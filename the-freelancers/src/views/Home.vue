@@ -30,7 +30,10 @@
             </span>
           </div>
           <div class="col">
-            <vue-markdown-it v-if="member.About" :source="member.About | excerpt" />
+            <vue-markdown-it
+              v-if="member.About"
+              :source="member.About | excerpt"
+            />
             <router-link
               :to="{ path: '/member/' + member.id }"
               class="link  pixel mark_block_wrap"
@@ -81,7 +84,7 @@ export default {
   },
   apollo: {
     page: {
-      query: gql `
+      query: gql`
         query Pages($id: ID = 1) {
           page(id: $id) {
             id
@@ -119,7 +122,7 @@ export default {
     }
   },
   filters: {
-    positionFetch: function (value) {
+    positionFetch: function(value) {
       let positionRowsArr = value;
 
       //console.log(positionRowsArr);
@@ -130,21 +133,21 @@ export default {
         const rightRows = positionRowObj[1];
         posCont.push(rightRows);
 
-        var posContfiltered = posCont.filter(function (el) {
+        var posContfiltered = posCont.filter(function(el) {
           return el;
         });
         var positionsHtml =
           "<div class='position'>" +
           posContfiltered
-          .map(function (posContfilter) {
-            return "<span>" + posContfilter + "</span>";
-          })
-          .join("") +
+            .map(function(posContfilter) {
+              return "<span>" + posContfilter + "</span>";
+            })
+            .join("") +
           "</div>";
       }
       return positionsHtml;
     },
-    excerpt: function (value) {
+    excerpt: function(value) {
       let aboutTxt = value;
       if (aboutTxt.length > 400) {
         aboutTxt = aboutTxt.substring(0, 400);

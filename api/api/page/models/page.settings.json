@@ -2,21 +2,21 @@
   "kind": "collectionType",
   "collectionName": "pages",
   "info": {
-    "name": "Page"
+    "name": "page"
   },
   "options": {
     "increments": true,
     "timestamps": true
   },
   "attributes": {
+    "title": {
+      "type": "string"
+    },
     "heroText": {
       "type": "richtext"
     },
     "members": {
       "collection": "member"
-    },
-    "title": {
-      "type": "string"
     }
   }
 }

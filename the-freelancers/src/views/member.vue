@@ -13,17 +13,21 @@
     <div class="member_heading">
       <div class="team_number green">{{ member.id }}</div>
       <h1 class="pixel green">{{ member.Name }}</h1>
-      <span class="position_wrap"
-       v-if="member.positionZone"
-      :inner-html.prop="member.positionZone | positionFetch">
+      <span
+        class="position_wrap"
+        v-if="member.positionZone"
+        :inner-html.prop="member.positionZone | positionFetch"
+      >
       </span>
     </div>
     <div class="membre_about">
       <vue-markdown-it
-       v-if="member.About"
+        v-if="member.About"
         :source="member.About"
-         class="inner" />
+        class="inner"
+      />
     </div>
+    <div class="member_work"></div>
   </div>
 </template>
 
@@ -45,11 +49,11 @@ export default {
     };
   },
   components: {
-    VueMarkdownIt,
+    VueMarkdownIt
   },
   apollo: {
     member: {
-      query: gql `
+      query: gql`
         query Members($id: ID!) {
           member(id: $id) {
             id
@@ -60,6 +64,29 @@ export default {
               ... on ComponentMemberPosition {
                 position_row
               }
+            }
+            portfolio {
+              __typename
+              ... on ComponentMemberPortfolioItem {
+                workName
+                externalLink
+                youTubeLink
+                media {
+                  url
+                  caption
+                  alternativeText
+                }
+              }
+            }
+            socialMedia {
+              email
+              website
+              facebook
+              telegram
+              facebook
+              linkedIn
+              instagram
+              github
             }
           }
         }
@@ -72,7 +99,7 @@ export default {
     }
   },
   filters: {
-    positionFetch: function (value) {
+    positionFetch: function(value) {
       let positionRowsArr = value;
 
       let positionRowsArrValues = positionRowsArr.values();
@@ -82,21 +109,20 @@ export default {
         const rightRows = positionRowObj[1];
         posCont.push(rightRows);
 
-        var posContfiltered = posCont.filter(function (el) {
+        var posContfiltered = posCont.filter(function(el) {
           return el;
         });
         var positionsHtml =
           "<div class='position'>" +
           posContfiltered
-          .map(function (posContfilter) {
-            return "<span>" + posContfilter + "</span>";
-          })
-          .join("") +
+            .map(function(posContfilter) {
+              return "<span>" + posContfilter + "</span>";
+            })
+            .join("") +
           "</div>";
       }
       return positionsHtml;
     }
-
   }
 };
 </script>

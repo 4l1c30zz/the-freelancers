@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_member_portfolio_items",
+  "info": {
+    "name": "portfolio-item",
+    "icon": "images"
+  },
+  "options": {},
+  "attributes": {
+    "workName": {
+      "type": "string"
+    },
+    "externalLink": {
+      "type": "string"
+    },
+    "youTubeLink": {
+      "type": "string"
+    },
+    "media": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}
