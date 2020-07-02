@@ -22,7 +22,12 @@
             <h2 class="pixel green outline">
               {{ member.Name }}
             </h2>
-            <span class="position"> </span>
+              <span 
+              class="position_wrap"
+                v-if="member.positionZone"
+                :inner-html.prop="member.positionZone | positionFetch"
+              >
+              </span>
           </div>
           <div class="col">
             <vue-markdown-it v-if="member.About" :source="member.About" />
@@ -48,6 +53,7 @@
 import gql from "graphql-tag";
 import VueMarkdownIt from "vue-markdown-it";
 import logo from "@/components/logo";
+
 export default {
   name: "Home",
   metaInfo: {
@@ -85,7 +91,12 @@ export default {
               id
               Name
               About
-
+              positionZone {
+                __typename
+                ... on ComponentMemberPosition {
+                  position_row
+                }
+              }
               socialMedia {
                 email
                 website
@@ -105,6 +116,33 @@ export default {
           id: this.routeParam
         };
       }
+    }
+  },
+  filters: {
+    positionFetch: function(value) {
+      let positionRowsArr = value;
+
+      //console.log(positionRowsArr);
+      let positionRowsArrValues = positionRowsArr.values();
+      let posCont = [];
+      for (var positionRowsArrValuesExtracted of positionRowsArrValues) {
+        let positionRowObj = Object.values(positionRowsArrValuesExtracted);
+        const rightRows = positionRowObj[1];
+        posCont.push(rightRows);
+
+        var posContfiltered = posCont.filter(function(el) {
+          return el;
+        });
+        var positionsHtml =
+          "<div class='position'>" +
+          posContfiltered
+            .map(function(posContfilter) {
+              return "<span>" + posContfilter + "</span>";
+            })
+            .join("") +
+          "</div>";
+      }
+      return positionsHtml;
     }
   }
 };
@@ -151,6 +189,13 @@ export default {
   h2 {
     margin: 0 30px;
     letter-spacing: 0.05em;
+  }
+  .position_wrap{
+    text-align: right;
+    width: 70%;
+ .position > span{
+    display: block;
+  }
   }
   .inner {
     display: flex;
