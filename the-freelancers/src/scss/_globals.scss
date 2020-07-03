@@ -3,33 +3,46 @@
 @import "_reset";
 
 body {
-  font: font_weight(regular) 20px font_family(base_font);
-   //font-family: font_family(base_font) ;
+    font: font_weight(regular) 20px font_family(base_font);
     color: color(_black);
     max-width: 100%;
 }
-  h2 {
-      font-size: 3em;
-     text-shadow:
-      -4px -4px 0 color(_black),
- 	4px -4px 0 color(_black),
- 	-4px 4px 0 color(_black),
- 	4px 4px 0 color(_black);
-  }
+
+h2,
+h1 {
+    text-shadow:
+        -4px -4px 0 color(_black),
+        4px -4px 0 color(_black),
+        -4px 4px 0 color(_black),
+        4px 4px 0 color(_black);
+}
+
+h2 {
+    font-size: 3em;
+}
+
+h1 {
+    font-size: 5em;
+}
+
 .logo {
     align-self: center;
 }
-.pixel{
+
+.pixel {
     font-family: font_family(pixel_font);
 }
-.bold{
+
+.bold {
     font-weight: 700;
 }
+
 .team_number {
     font: 10em font_family(stencil_font);
     line-height: 0.5em;
     -webkit-text-stroke: 10px color(_black);
 }
-.green{
+
+.green {
     color: color(_green);
 }

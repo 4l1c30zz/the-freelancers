@@ -12,13 +12,12 @@
     </div>
     <div class="member_heading">
       <div class="team_number green">{{ member.id }}</div>
-      <h1 class="pixel green">{{ member.Name }}</h1>
-      <span
+      <h1 class="pixel green outline">{{ member.Name }}</h1>
+      <div
         class="position_wrap"
         v-if="member.positionZone"
         :inner-html.prop="member.positionZone | positionFetch"
-      >
-      </span>
+      ></div>
     </div>
     <div class="membre_about">
       <vue-markdown-it
@@ -27,7 +26,9 @@
         class="inner"
       />
     </div>
-    <div class="member_work"></div>
+    <div v-if="member.portfolio" class="member_portfolio block">
+      {{ member.portfolio | portfolioFetch }}
+    </div>
   </div>
 </template>
 
@@ -43,7 +44,15 @@ export default {
   },
   data() {
     return {
-      member: {},
+      member: {
+        id: null,
+        positionZone: [
+          {
+            id: null
+          }
+        ]
+      },
+
       api_url: process.env.VUE_APP_STRAPI_API_URL,
       routeParam: this.$route.params.id
     };
@@ -72,6 +81,7 @@ export default {
                 externalLink
                 youTubeLink
                 media {
+                  id
                   url
                   caption
                   alternativeText
@@ -101,7 +111,6 @@ export default {
   filters: {
     positionFetch: function(value) {
       let positionRowsArr = value;
-
       let positionRowsArrValues = positionRowsArr.values();
       let posCont = [];
       for (var positionRowsArrValuesExtracted of positionRowsArrValues) {
@@ -112,6 +121,7 @@ export default {
         var posContfiltered = posCont.filter(function(el) {
           return el;
         });
+
         var positionsHtml =
           "<div class='position'>" +
           posContfiltered
@@ -122,6 +132,31 @@ export default {
           "</div>";
       }
       return positionsHtml;
+    },
+    portfolioFetch: function(value) {
+      let portfolioArr = value;
+      let portfolioArrValues = portfolioArr.values();
+      for (var i of portfolioArrValues) {
+        let portofiloObjectsVals = Object.values(i);
+        let workTitle = portofiloObjectsVals[1];
+        console.log(workTitle + "/workTitle");
+        let externalLink = portofiloObjectsVals[2];
+        console.log(externalLink + "/externalLink");
+        let youTubeLink = portofiloObjectsVals[3];
+        console.log(youTubeLink + "/youTubeLink");
+        let imgArr = portofiloObjectsVals[4];
+
+        let imgArrValues = imgArr.values();
+        for (var x of imgArrValues) {
+          let imgArrObjVal = Object.values(x);
+          let imageUrl = imgArrObjVal[1];
+          console.log(imageUrl + "/imageUrl");
+          let imageDesc = imgArrObjVal[2];
+          console.log(imageDesc + "/imageDesc");
+          let imageAlt = imgArrObjVal[3];
+          console.log(imageAlt + "/imageAlt");
+        }
+      }
     }
   }
 };
