@@ -142,7 +142,7 @@ export default {
           return el;
         });
         var positionsHtml =
-          "<div class='position'>" +
+          "<div class='position__inner'>" +
           posContfiltered
             .map(function(posContfilter) {
               return "<span>" + posContfilter + "</span>";
@@ -222,10 +222,10 @@ export default {
     flex-basis: 70%;
   }
 
-  .member__position_wrap {
+  .member__position {
     text-align: left;
 
-    .position>span {
+    .position__inner > span {
       display: block;
     }
   }
@@ -234,9 +234,10 @@ export default {
     display: flex;
     align-content: center;
     justify-content: space-between;
-    max-width: 80%;
+    width: 80%;
     margin: 0 auto;
     padding: 10vh 0;
+    max-width: 1150px;
 
     >.col {
       flex-grow: 1;
@@ -277,6 +278,7 @@ export default {
       margin-top: 5px;
     }
   }
+
 @media screen and (max-width: 1024px) {
   .member .inner {
     .member__link {
@@ -292,7 +294,7 @@ export default {
       text-align: center;
     }
 
-    .member__position_wrap {
+    .member__position {
       display: block;
       margin-bottom: 10px;
     }
@@ -302,7 +304,7 @@ export default {
       display: block;
     }
 
-    .member___number {
+    .member__number {
       margin: 0 auto;
       line-height: 0.5em;
       position: static;

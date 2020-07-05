@@ -1,9 +1,9 @@
 <template>
   <div class="single">
     <socialMemberBar :socialMedia="member.socialMedia" />
-    <div class="back pixel green">
+    <div class="backHome pixel green">
       <router-link to="/" class="link pixel mark_block_wrap">
-        <span class="word">
+        <span class="backHome__word">
           back
         </span>
         <span class="arrow-right icon pixel green">
@@ -15,7 +15,7 @@
       <div class="member__number green">{{ member.id }}</div>
       <h1 class="pixel green outline">{{ member.Name }}</h1>
       <div
-        class="member__position_wrap"
+        class="member__position"
         v-if="member.positionZone"
         :inner-html.prop="member.positionZone | positionFetch"
       ></div>
@@ -126,7 +126,7 @@ export default {
         });
 
         var positionsHtml =
-          "<div class='position'>" +
+          "<div class='position__inner'>" +
           posContfiltered
             .map(function(posContfilter) {
               return "<span>" + posContfilter + "</span>";
@@ -186,33 +186,8 @@ export default {
 @import "@/scss/_variables.scss";
 @import "@/scss/_functions.scss";
 @import "@/scss/_globals.scss";
-
-.member__heading {
-  padding: 3vh 0 5vh;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  h1 {
-    flex-basis: 100%;
-    text-align: center;
-  }
-
-  .member__number {
-    flex-basis: 100%;
-    text-align: center;
-    line-height: 1em;
-  }
-
-  .member__position>span {
-    display: block;
-    text-align: center;
-  }
-}
-
 .single {
-  .back {
+  .backHome {
     background: color(_black);
     padding: 5%;
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);
@@ -232,6 +207,30 @@ export default {
   .inner {
     max-width: 80%;
     margin: 0 auto;
+  }
+}
+
+.member__heading {
+  padding: 3vh 0 5vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  h1 {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  .member__number {
+    flex-basis: 100%;
+    text-align: center;
+    line-height: 1em;
+  }
+
+  .member__position span {
+    display: block;
+    text-align: center;
   }
 }
 
