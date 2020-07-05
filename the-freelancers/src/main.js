@@ -4,11 +4,25 @@ import router from "./router";
 import VueApollo from "vue-apollo";
 import apolloClient from "./vue-apollo";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faTelegram } from "@fortawesome/free-brands-svg-icons";
+import { faAt, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGithub,
+  faTelegramPlane,
+  faInstagram,
+  faLinkedinIn,
+  faFacebookF
+} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faAt, faGithub, faTelegram);
+library.add(
+  faAt,
+  faGithub,
+  faTelegramPlane,
+  faInstagram,
+  faLinkedinIn,
+  faFacebookF,
+  faGlobe
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 import { dom } from "@fortawesome/fontawesome-svg-core";

@@ -1,5 +1,5 @@
 <template>
-  <div class="single">
+  <div :class="'member' + member.id + ' single'">
     <socialMemberBar :socialMedia="member.socialMedia" />
     <div class="backHome pixel green">
       <router-link to="/" class="link pixel mark_block_wrap">
@@ -173,7 +173,6 @@ export default {
           full_html += "<a href='" + externalLink + "'/>external</a>";
         }
         full_html += "</div>";
-        //  wrappedFullHtml += "<div class ='contWrap'>" + full_html + "</div>";
       }
 
       return full_html;
@@ -187,6 +186,32 @@ export default {
 @import "@/scss/_functions.scss";
 @import "@/scss/_globals.scss";
 .single {
+  &.member1 {
+    background: url("../assets/member1.png") color(_pink);
+    background-repeat: no-repeat;
+    background-position: center 25vh;
+    background-attachment: fixed;
+    background-size: 38%;
+  }
+  &.member2 {
+    background: url("../assets/member2.png") color(_cyan);
+    background-repeat: no-repeat;
+    background-position: center 25vh;
+    background-attachment: fixed;
+  }
+  &.member3 {
+    background: url("../assets/member3.png") color(_violet);
+    background-repeat: no-repeat;
+    background-position: center 25vh;
+    background-size: 30%;
+    background-attachment: fixed;
+  }
+  .socialSideBar {
+    position: fixed;
+    bottom: 10%;
+    z-index: 1;
+    top: auto;
+  }
   .backHome {
     background: color(_black);
     padding: 5%;

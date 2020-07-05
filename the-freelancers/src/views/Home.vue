@@ -31,7 +31,7 @@
       <div
         v-for="member in page.members"
         :key="member.id"
-        class=" member block"
+        :class="'member' + member.id + ' member block'"
       >
         <socialMemberBar :socialMedia="member.socialMedia" />
         <div class="inner">
@@ -230,18 +230,24 @@ export default {
 
 .members {
   > div {
-    &:nth-child(1) {
-      background: color(_pink);
+    &.member1 {
+      background: url("../assets/member1.png") color(_pink);
+      background-repeat: no-repeat;
+      background-size: 26%;
+      background-position: 5vw 5vh;
       clip-path: polygon(0 0, 100% 10%, 100% 93%, 0 100%);
       margin: -8vh 0 0 0;
-
+      background-repeat: no-repeat;
       .inner {
         padding: 15vh 0 16vh;
       }
     }
 
-    &:nth-child(2) {
-      background: color(_cyan);
+    &.member2 {
+      background: url("../assets/member2.png") color(_cyan);
+      background-repeat: no-repeat;
+      background-size: 25%;
+      background-position: 60vw center;
       clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 84%);
       margin: -12vh 0 0 0;
       .socialSideBar {
@@ -274,8 +280,11 @@ export default {
       }
     }
 
-    &:nth-child(3) {
-      background: color(_violet);
+    &.member3 {
+      background: url("../assets/member3.png") color(_violet);
+      background-repeat: no-repeat;
+      background-size: 22%;
+      background-position: 10vw 5vh;
       clip-path: polygon(0 0, 100% 12%, 100% 90%, 0 100%);
       margin: -13vh 0 0 0;
 
