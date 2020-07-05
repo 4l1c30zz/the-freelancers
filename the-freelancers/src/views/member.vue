@@ -239,7 +239,7 @@ export default {
   justify-content: center;
   align-content: center;
 
-  >div {
+  > div {
     flex-basis: 33.33%;
     padding: 20px;
     display: flex;

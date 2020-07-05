@@ -1,11 +1,15 @@
 @import "_variables";
 @import "_functions";
 @import "_reset";
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font: font_weight(regular) 20px font_family(base_font);
     color: color(_black);
     max-width: 100%;
+    background: color(_black);
 }
 
 h2,
@@ -19,6 +23,7 @@ h1 {
 
 h2 {
     font-size: 3em;
+    line-height: 0.8em;
 }
 
 h1 {
