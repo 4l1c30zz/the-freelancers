@@ -1,7 +1,9 @@
 <template>
   <ul v-if="socialMedia" class="socialSideBar">
     <li v-if="socialMedia.email">
-      {{ socialMedia.email }}
+      <a :href="socialMedia.email">
+        <font-awesome-icon icon="at" size="lg" />
+      </a>
     </li>
     <li v-if="socialMedia.website">
       {{ socialMedia.website }}
@@ -16,10 +18,14 @@
       {{ socialMedia.instagram }}
     </li>
     <li v-if="socialMedia.telegram">
-      {{ socialMedia.telegram }}
+      <a :href="socialMedia.telegram">
+         <font-awesome-icon :icon="['fab','telegram']" size="lg" />
+         </a>
     </li>
     <li v-if="socialMedia.github">
-      {{ socialMedia.github }}
+      <a :href="socialMedia.github">
+        <font-awesome-icon :icon="['fab','github']" size="lg" />
+      </a>
     </li>
   </ul>
 </template>
@@ -57,5 +63,9 @@ export default {
   background: color(_black);
   color: color(_pink);
   padding: 20px 10px;
+  a {
+    text-align: center;
+    display: block;
+  }
 }
 </style>
