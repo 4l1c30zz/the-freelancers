@@ -23,6 +23,7 @@ h2 {
 
 h1 {
     font-size: 5em;
+    text-align: center;
 }
 
 .logo {
@@ -37,7 +38,7 @@ h1 {
     font-weight: 700;
 }
 
-.team_number {
+.member__number {
     font: 10em font_family(stencil_font);
     line-height: 0.5em;
     -webkit-text-stroke: 10px color(_black);

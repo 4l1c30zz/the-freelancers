@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div id="hero">
+    <div class="hero">
       <logo />
     </div>
     <div class="about pixel block">
@@ -16,18 +16,21 @@
         :key="member.id"
         class=" member block"
       >
+        <socialMemberBar :socialMedia="member.socialMedia" />
         <div class="inner">
           <div class="col">
-            <div class="team_number green">{{ member.id }}</div>
-            <h2 class="pixel green outline">
-              {{ member.Name }}
-            </h2>
-            <span
-              class="position_wrap"
-              v-if="member.positionZone"
-              :inner-html.prop="member.positionZone | positionFetch"
-            >
-            </span>
+            <div class="member__number green">{{ member.id }}</div>
+            <div class="details_wrap">
+              <h2 class="pixel green outline">
+                {{ member.Name }}
+              </h2>
+              <span
+                class="member__position"
+                v-if="member.positionZone"
+                :inner-html.prop="member.positionZone | positionFetch"
+              >
+              </span>
+            </div>
           </div>
           <div class="col">
             <vue-markdown-it
@@ -36,7 +39,7 @@
             />
             <router-link
               :to="{ path: '/member/' + member.id }"
-              class="link  pixel mark_block_wrap"
+              class="member__link  pixel mark_block_wrap"
             >
               <span class="arrow-right icon pixel green">
                 >
@@ -56,6 +59,7 @@
 import gql from "graphql-tag";
 import VueMarkdownIt from "vue-markdown-it";
 import logo from "@/components/logo";
+import socialMemberBar from "@/components/socialMemberBar";
 
 export default {
   name: "Home",
@@ -80,7 +84,8 @@ export default {
   },
   components: {
     VueMarkdownIt,
-    logo
+    logo,
+    socialMemberBar
   },
   apollo: {
     page: {
@@ -164,7 +169,7 @@ export default {
 @import "@/scss/_functions.scss";
 @import "@/scss/_globals.scss";
 
-#hero {
+.hero {
   background: url("../assets/hero_bck.png"), color(_black);
   background-position: center;
   background-size: 62%;
@@ -180,6 +185,7 @@ export default {
   align-content: center;
   width: 100%;
   padding: 10vh 0;
+
   .logo {
     width: 50%;
     max-width: 35vw;
@@ -189,7 +195,7 @@ export default {
 .about {
   background: color(_black);
   color: color(_cyan);
-  padding: 10vh 20vw;
+  padding: 5vh 20vw 7vh;
   font-size: 1.6em;
   border-top: 5px solid color(_pink);
   text-align: center;
@@ -197,17 +203,33 @@ export default {
 }
 
 .member {
+  position: relative;
+
   h2 {
-    margin: 0 30px;
+    margin: 20px 0 0;
     letter-spacing: 0.05em;
   }
-  .position_wrap {
-    text-align: right;
-    width: 70%;
-    .position > span {
+
+  .member__number {
+    margin-right: 20px;
+    flex-basis: calc(30% - 40px);
+    line-height: 0;
+    position: relative;
+    top: 0.5em;
+  }
+
+  .details_wrap {
+    flex-basis: 70%;
+  }
+
+  .member__position_wrap {
+    text-align: left;
+
+    .position>span {
       display: block;
     }
   }
+
   .inner {
     display: flex;
     align-content: center;
@@ -215,31 +237,75 @@ export default {
     max-width: 80%;
     margin: 0 auto;
     padding: 10vh 0;
-    > .col {
-      flex-basis: 50%;
+
+    >.col {
       flex-grow: 1;
       display: flex;
-      justify-content: flex-start;
       align-content: flex-start;
       height: auto;
-      flex-wrap: wrap;
+
+      &:first-child {
+        flex-basis: calc(40% - 40px);
+        justify-content: flex-start;
+        margin-right: 40px;
+      }
+
+      &:last-child {
+        flex-basis: 60%;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
     }
   }
-  .link {
+}
+  .member__link {
     text-align: right;
     padding: 1vh 0;
     display: block;
     font-size: 3em;
     line-height: 1em;
-    > span {
+
+    >span {
       display: inline-block;
       vertical-align: middle;
     }
+
     .icon {
       -webkit-text-stroke: 2.2px color(_black);
       font-size: 55px;
       margin-right: 15px;
       margin-top: 5px;
+    }
+  }
+@media screen and (max-width: 1024px) {
+  .member .inner {
+    .member__link {
+      text-align: left;
+    }
+
+    display: block;
+    padding: 3vh 0;
+
+    .member__number,
+    h2,
+    span {
+      text-align: center;
+    }
+
+    .member__position_wrap {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .col {
+      flex-basis: 100%;
+      display: block;
+    }
+
+    .member___number {
+      margin: 0 auto;
+      line-height: 0.5em;
+      position: static;
     }
   }
 }
