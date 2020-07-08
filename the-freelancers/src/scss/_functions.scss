@@ -14,12 +14,12 @@
     @return map-get($colors, $key);
 }
 
-@function font_size($key) {
-    @if not map-has-key($font_sizes, $key) {
+@function font_size_desktop($key) {
+    @if not map-has-key($font_sizes_desktop, $key) {
         @warn "Key `#{$key}` not found.";
     }
 
-    @return map-get($font_sizes, $key);
+    @return map-get($font_sizes_desktop, $key);
 }
 
 @function font_weight($key) {

@@ -6,10 +6,12 @@ $fonts: (
     "base_font": "Sarpanch"
 );
 
-$font_sizes: ("f14": 14px,
-    "f16": 16px,
-    "f18" : 18px,
-    "f20": 20px,
+$font_sizes_desktop: (
+    "base_size": 20px,
+    "small_pixel_size": 24px,
+    "small_medium_pixel_size": 37px,
+    "medium_pixel_size": 50px,
+    "big_pixel_size": 100px,
 );
 
 $font_weights: ("light" : 300,

@@ -129,7 +129,7 @@ export default {
           "<div class='position__inner'>" +
           posContfiltered
             .map(function(posContfilter) {
-              return "<span>" + posContfilter + "</span>";
+              return "<span class='pixel'>" + posContfilter + "</span>";
             })
             .join("") +
           "</div>";

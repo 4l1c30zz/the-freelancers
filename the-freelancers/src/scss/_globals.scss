@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    font: font_weight(regular) 20px font_family(base_font);
+    font: font_weight(regular) font_size_desktop(base_size) font_family(base_font);
     color: color(_black);
     max-width: 100%;
     background: color(_black);
@@ -22,12 +22,12 @@ h1 {
 }
 
 h2 {
-    font-size: 3em;
+    font-size: font_size_desktop(medium_pixel_size);
     line-height: 0.8em;
 }
 
 h1 {
-    font-size: 5em;
+    font-size: font_size_desktop(big_pixel_size);
     text-align: center;
 }
 
@@ -44,11 +44,14 @@ h1 {
 }
 
 .member__number {
-    font: 10em font_family(stencil_font);
+    font: 173px font_family(stencil_font);
     line-height: 0.5em;
     -webkit-text-stroke: 10px color(_black);
 }
 
 .green {
     color: color(_green);
+}
+.member__position{
+     font-size: font_size_desktop(small_pixel_size);
 }

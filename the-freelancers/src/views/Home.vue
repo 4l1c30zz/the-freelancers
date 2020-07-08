@@ -59,9 +59,6 @@
               :to="{ path: '/member/' + member.id }"
               class="member__link  pixel mark_block_wrap"
             >
-              <span class="arrow-right icon pixel green">
-                >
-              </span>
               <span class="word">
                 more
               </span>
@@ -161,7 +158,7 @@ export default {
           "<div class='position__inner'>" +
           posContfiltered
             .map(function(posContfilter) {
-              return "<span>" + posContfilter + "</span>";
+              return "<span class='pixel'>" + posContfilter + "</span>";
             })
             .join("") +
           "</div>";
@@ -222,7 +219,7 @@ export default {
   background: color(_black);
   color: color(_cyan);
   padding: 5vh 20vw 11vh;
-  font-size: 1.6em;
+  font-size: font_size_desktop(small_medium_pixel_size);
   border-top: 5px solid color(_pink);
   text-align: center;
   clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);
@@ -238,6 +235,7 @@ export default {
       clip-path: polygon(0 0, 100% 10%, 100% 93%, 0 100%);
       margin: -8vh 0 0 0;
       background-repeat: no-repeat;
+
       .inner {
         padding: 15vh 0 16vh;
       }
@@ -250,16 +248,21 @@ export default {
       background-position: 60vw center;
       clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 84%);
       margin: -12vh 0 0 0;
+
       .socialSideBar {
         right: auto;
         left: 0;
       }
+
       .member__number {
         order: 2;
+        margin-right: 0;
+        margin-left: 20px;
       }
 
       .details_wrap {
         order: 1;
+        text-align: right;
       }
 
       .inner {
@@ -269,6 +272,18 @@ export default {
           &:nth-child(2) {
             order: 1;
             justify-content: flex-start;
+
+            .member__link {
+              &:after {
+                content: ">";
+                margin-left: 15px;
+              }
+
+              &:before {
+                content: "";
+                margin-right: 0px;
+              }
+            }
           }
 
           &:nth-child(1) {
@@ -309,6 +324,7 @@ export default {
     position: relative;
     top: 0.5em;
   }
+
   .member__about {
     margin-top: 27px;
   }
@@ -316,11 +332,10 @@ export default {
   .details_wrap {
     flex-basis: 70%;
     margin-top: 27px;
+    text-align: left;
   }
 
   .member__position {
-    text-align: left;
-
     .position__inner > span {
       display: block;
     }
@@ -349,7 +364,7 @@ export default {
 
       &:last-child {
         flex-basis: 60%;
-        justify-content: flex-end;
+        justify-content: flex-start;
         flex-wrap: wrap;
       }
     }
@@ -360,7 +375,7 @@ export default {
   text-align: right;
   padding: 1vh 0;
   display: block;
-  font-size: 3em;
+  font-size: font_size_desktop(medium_pixel_size);
   line-height: 1em;
 
   > span {
@@ -368,11 +383,21 @@ export default {
     vertical-align: middle;
   }
 
-  .icon {
+  &:before,
+  &:after {
     -webkit-text-stroke: 2.2px color(_black);
-    font-size: 55px;
-    margin-right: 15px;
+    font: font_weight(regular) font_size_desktop(medium_pixel_size)
+      font_family(pixel_font);
+    color: color(_green);
+
     margin-top: 5px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &:before {
+    content: ">";
+    margin-right: 15px;
   }
 }
 
