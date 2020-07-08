@@ -389,7 +389,6 @@ export default {
     font: font_weight(regular) font_size_desktop(medium_pixel_size)
       font_family(pixel_font);
     color: color(_green);
-
     margin-top: 5px;
     display: inline-block;
     vertical-align: middle;
