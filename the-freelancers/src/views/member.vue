@@ -30,7 +30,7 @@
     <div class="portfolio">
       <svg
         @click="move_left"
-        class="chev left"
+        class="chev left a"
         viewBox="0 0 49 113"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +64,7 @@
 import gql from "graphql-tag";
 import VueMarkdownIt from "vue-markdown-it";
 import socialMemberBar from "../components/socialMemberBar";
+import { get_siblings, isInViewport } from "../js/custom";
 
 export default {
   name: "Post",
@@ -138,32 +139,23 @@ export default {
   },
   methods: {
     move_left: function() {
-
-      function isInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        const windowHeight =
-          window.innerHeight || document.documentElement.clientHeight;
-        const windowWidth =
-          window.innerWidth || document.documentElement.clientWidth;
-        const vertInView =
-          rect.top <= windowHeight && rect.top + rect.height >= 0;
-        const horInView =
-          rect.left <= windowWidth && rect.left + rect.width >= 0;
-
-        return vertInView && horInView;
-      }
       let pholioParent = document.querySelector(".portfolio");
-      let rightArr = document.querySelector(".chev.right");
-      let pholioCont = document.querySelector(".portfolio__inner");
       let pholioContWidth = pholioParent.scrollWidth;
+      let screenWidth = screen.width;
+
+      let rightArr = document.querySelector(".chev.right");
+
+      let pholioCont = document.querySelector(".portfolio__inner");
+
       let pholioRightStyle = parseInt(pholioCont.style.right, 0);
       let portfolioProjects = document.querySelectorAll(".portfolio__poject");
-      let screenWidth = screen.width;
+
       if (screenWidth < pholioContWidth && pholioContWidth > pholioRightStyle) {
         portfolioProjects.forEach(portfolioProject => {
           var bounding = portfolioProject.getBoundingClientRect();
           let projectWidth = bounding.width;
-          if (isInViewport(portfolioProject)) {
+          let isInViewportProj = isInViewport(portfolioProject);
+          if (isInViewportProj) {
             pholioCont.style.right = pholioRightStyle + projectWidth + "px";
           }
         });
@@ -174,19 +166,6 @@ export default {
       }
     },
     move_right: function() {
-      function isInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        const windowHeight =
-          window.innerHeight || document.documentElement.clientHeight;
-        const windowWidth =
-          window.innerWidth || document.documentElement.clientWidth;
-        const vertInView =
-          rect.top <= windowHeight && rect.top + rect.height >= 0;
-        const horInView =
-          rect.left <= windowWidth && rect.left + rect.width >= 0;
-
-        return vertInView && horInView;
-      }
       let rightArr = document.querySelector(".chev.right");
       let pholioCont = document.querySelector(".portfolio__inner");
       let pholioRightStyle = parseInt(pholioCont.style.right, 0);
@@ -194,7 +173,8 @@ export default {
       let screenWidth = screen.width;
       portfolioProjects.forEach(portfolioProject => {
         var bounding = portfolioProject.getBoundingClientRect();
-        if (isInViewport(portfolioProject)) {
+        let isInViewportProj = isInViewport(portfolioProject);
+        if (isInViewportProj) {
           let projectWidth = bounding.width;
           if (
             pholioRightStyle > projectWidth &&
@@ -209,6 +189,7 @@ export default {
       });
     }
   },
+
   filters: {
     positionFetch: function(value) {
       let positionRowsArr = value;
@@ -245,7 +226,7 @@ export default {
       for (var i of portfolioArrValues) {
         let portofiloObjectsVals = Object.values(i);
         let workTitle = portofiloObjectsVals[1];
-        full_html += "<div class='portfolio__poject'>";
+        full_html += "<div  class='portfolio__poject'>";
         full_html += "<h3 class='pixel'>" + workTitle + "</h3>";
 
         let externalLink = portofiloObjectsVals[2];
@@ -262,7 +243,12 @@ export default {
           let imageAlt = imgArrObjVal[3];
           if (imageUrl != null) {
             full_html +=
-              "<img src='" + api_url + imageUrl + "' alt='" + imageAlt + "'/>";
+              "<div class='img_wrap'><img src='" +
+              api_url +
+              imageUrl +
+              "' alt='" +
+              imageAlt +
+              "'/></div>";
           }
         }
         if (externalLink != null) {
@@ -276,6 +262,39 @@ export default {
 
       return full_html;
     }
+  },
+  mounted: function() {
+    function classToggle() {
+      console.log("created");
+      let portfolioProjects = document.querySelectorAll(".portfolio__poject");
+
+      portfolioProjects.forEach(portfolioProject => {
+        portfolioProject.addEventListener("click", event => {
+          let targ = event.target.closest(".portfolio__poject");
+          console.log(targ);
+          targ.classList.toggle("a");
+          let siblings = get_siblings(targ);
+          siblings.forEach(sib => {
+            sib.classList.remove("a");
+          });
+        });
+      });
+    }
+    setTimeout(function() {
+      classToggle();
+      let pholioParent = document.querySelector(".portfolio");
+      let pholioContWidth = pholioParent.scrollWidth;
+      let screenWidth = screen.width;
+      let lefttArr = document.querySelector(".chev.left");
+
+      if (screenWidth > pholioContWidth) {
+        lefttArr.classList.remove("a");
+        pholioParent.classList.add("short");
+      } else {
+        lefttArr.classList.add("a");
+        pholioParent.classList.remove("short");
+      }
+    }, 1000);
   }
 };
 </script>
@@ -376,6 +395,7 @@ export default {
     position: absolute;
     top: 40%;
     z-index: 2;
+    transition: all 0.3s ease;
     path {
       fill: color(_green);
       stroke: color(_black);
@@ -383,14 +403,26 @@ export default {
     }
     &.left {
       left: 3.5vw;
+      opacity: 0;
+      &.a {
+        opacity: 1;
+      }
     }
     &.right {
       right: 3.5vw;
       opacity: 0;
-      transition: all 0.3s ease;
       &.a {
         opacity: 1;
       }
+    }
+  }
+  &.short {
+    .portfolio__inner {
+      justify-content: flex-end;
+      //right: 0 !important;
+    }
+    .chev {
+      display: none;
     }
   }
   .portfolio__inner {
@@ -406,13 +438,56 @@ export default {
 
     .portfolio__poject {
       flex-basis: calc(33.33% - 100px);
-      padding: 0 50px;
+      margin: 0 20px;
       display: flex;
       width: 100%;
       align-content: center;
       justify-content: center;
       flex-direction: column;
       text-align: center;
+      &.a {
+        img,
+        iframe {
+          filter: grayscale(0);
+        }
+        .img_wrap {
+          position: fixed;
+          width: 100%;
+          max-width: 100%;
+          top: 0;
+          left: 0;
+          height: 100%;
+          z-index: 10;
+          background: white;
+          text-align: center;
+          cursor: pointer;
+          img {
+            object-fit: scale-down;
+            width: 100%;
+            max-width: 90%;
+          }
+          &:after{
+            content: "x";
+            font-family: font_family(pixel_font);
+            font-size: 100px;
+            line-height: 1em;
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            color: color(_green);
+              -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-color: color(_black);
+  font-weight: bold;
+          }
+        }
+      }
+      &:hover img,
+      &:hover iframe {
+        filter: grayscale(0);
+      }
+      &:hover .portfolio__link {
+        transform: scale(2) skewY(-15deg);
+      }
       h3 {
         font-size: font_size_desktop(small_pixel_size);
         line-height: 0.8em;
@@ -426,11 +501,8 @@ export default {
       font-size: font_size_desktop(small_pixel_size);
       line-height: 1em;
       font-weight: bold;
-
+      background: transparent;
       transition: all 0.3s ease;
-      &:hover {
-        transform: scale(2) skewY(-15deg);
-      }
 
       &:before,
       &:after {
@@ -459,9 +531,6 @@ export default {
     transition: all 0.3s ease;
     filter: grayscale(1) sepia(0.5);
     height: 100%;
-    &:hover {
-      filter: grayscale(0);
-    }
   }
 }
 
@@ -471,7 +540,7 @@ export default {
 
     .portfolio__poject {
       flex-basis: calc(50% - 40px);
-      padding: 0 20px;
+      margin: 0 20px;
       width: 100%;
       min-width: 100%;
       iframe {
