@@ -138,26 +138,13 @@ export default {
   },
   methods: {
     move_left: function() {
-      /*  var isInViewport = function(portfolioProject) {
-        var bounding = portfolioProject.getBoundingClientRect();
-        return (
-          bounding.top >= 0 &&
-          bounding.left >= 0 &&
-          bounding.bottom <=
-            (window.innerHeight || document.documentElement.clientHeight) &&
-          bounding.right <=
-            (window.innerWidth || document.documentElement.clientWidth)
-        );
-      };*/
+
       function isInViewport(el) {
         const rect = el.getBoundingClientRect();
-        // DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
         const windowHeight =
           window.innerHeight || document.documentElement.clientHeight;
         const windowWidth =
           window.innerWidth || document.documentElement.clientWidth;
-
-        // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
         const vertInView =
           rect.top <= windowHeight && rect.top + rect.height >= 0;
         const horInView =
@@ -172,15 +159,11 @@ export default {
       let pholioRightStyle = parseInt(pholioCont.style.right, 0);
       let portfolioProjects = document.querySelectorAll(".portfolio__poject");
       let screenWidth = screen.width;
-      console.log(screenWidth);
-      console.log(pholioContWidth);
       if (screenWidth < pholioContWidth && pholioContWidth > pholioRightStyle) {
         portfolioProjects.forEach(portfolioProject => {
           var bounding = portfolioProject.getBoundingClientRect();
           let projectWidth = bounding.width;
-          console.log(projectWidth);
           if (isInViewport(portfolioProject)) {
-            console.log("in view");
             pholioCont.style.right = pholioRightStyle + projectWidth + "px";
           }
         });
@@ -191,35 +174,39 @@ export default {
       }
     },
     move_right: function() {
-      var isInViewport = function(portfolioProject) {
-        var bounding = portfolioProject.getBoundingClientRect();
-        return (
-          bounding.top >= 0 &&
-          bounding.left >= 0 &&
-          bounding.bottom <=
-            (window.innerHeight || document.documentElement.clientHeight) &&
-          bounding.right <=
-            (window.innerWidth || document.documentElement.clientWidth)
-        );
-      };
+      function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight =
+          window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth =
+          window.innerWidth || document.documentElement.clientWidth;
+        const vertInView =
+          rect.top <= windowHeight && rect.top + rect.height >= 0;
+        const horInView =
+          rect.left <= windowWidth && rect.left + rect.width >= 0;
 
+        return vertInView && horInView;
+      }
       let rightArr = document.querySelector(".chev.right");
       let pholioCont = document.querySelector(".portfolio__inner");
       let pholioRightStyle = parseInt(pholioCont.style.right, 0);
       let portfolioProjects = document.querySelectorAll(".portfolio__poject");
       let screenWidth = screen.width;
-      if (pholioRightStyle > screenWidth) {
-        portfolioProjects.forEach(portfolioProject => {
-          var bounding = portfolioProject.getBoundingClientRect();
-          if (isInViewport(portfolioProject)) {
-            let projectWidth = bounding.width;
+      portfolioProjects.forEach(portfolioProject => {
+        var bounding = portfolioProject.getBoundingClientRect();
+        if (isInViewport(portfolioProject)) {
+          let projectWidth = bounding.width;
+          if (
+            pholioRightStyle > projectWidth &&
+            pholioRightStyle < screenWidth
+          ) {
             pholioCont.style.right = pholioRightStyle - projectWidth + "px";
+          } else {
+            pholioCont.style.right = "-10vw";
+            rightArr.classList.remove("a");
           }
-        });
-      } else {
-        pholioCont.style.right = "-10vw";
-        rightArr.classList.remove("a");
-      }
+        }
+      });
     }
   },
   filters: {
@@ -277,11 +264,12 @@ export default {
             full_html +=
               "<img src='" + api_url + imageUrl + "' alt='" + imageAlt + "'/>";
           }
-          let imageDesc = imgArrObjVal[2];
-          full_html += "<p class='pixel'>" + imageDesc + "</p>";
         }
         if (externalLink != null) {
-          full_html += "<a class='pixel portfolio__link' href='" + externalLink + "'/>external</a>";
+          full_html +=
+            "<a target='_blank' class='pixel portfolio__link' href='" +
+            externalLink +
+            "'/>external</a>";
         }
         full_html += "</div>";
       }
@@ -298,9 +286,9 @@ export default {
 @import "@/scss/_globals.scss";
 .single {
   .member__about {
-  max-width: 65%;
-  margin: 0 auto;
-}
+    max-width: 65%;
+    margin: 0 auto;
+  }
   &.member1 {
     background: url("../assets/member1.png") color(_pink);
     background-repeat: no-repeat;
@@ -378,8 +366,6 @@ export default {
   }
 }
 
-
-
 .portfolio {
   padding: 10vh 0;
   position: relative;
@@ -411,6 +397,7 @@ export default {
     display: inline-flex;
     justify-content: flex-start;
     align-content: center;
+    align-items: center;
     max-width: 100%;
     position: relative;
     z-index: 1;
@@ -426,41 +413,42 @@ export default {
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      h3, p{
+      h3 {
         font-size: font_size_desktop(small_pixel_size);
         line-height: 0.8em;
-        margin: 20px 0;
+        margin: 0 0 10px;
       }
     }
     .portfolio__link {
-  text-align: center;
-  padding: 1vh 0;
-  display: block;
-  font-size: font_size_desktop(small_pixel_size);
-  line-height: 1em;
-
-  > span {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  &:before,
-  &:after {
-    -webkit-text-stroke: 1.2px color(_black);
-    font: font_weight(regular) font_size_desktop(small_pixel_size)
-      font_family(pixel_font);
+      text-align: center;
+      margin: 10px 0 0;
+      display: block;
+      font-size: font_size_desktop(small_pixel_size);
+      line-height: 1em;
       font-weight: bold;
-    color: color(_green);
-    margin-top: 0px;
-    display: inline-block;
-    vertical-align: middle;
-  }
 
-  &:before {
-    content: ">";
-    margin-right: 15px;
-  }
-}
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(2) skewY(-15deg);
+      }
+
+      &:before,
+      &:after {
+        -webkit-text-stroke: 1.2px color(_black);
+        font: font_weight(regular) font_size_desktop(small_pixel_size)
+          font_family(pixel_font);
+        font-weight: bold;
+        color: color(_green);
+        margin-top: 0px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &:before {
+        content: ">";
+        margin-right: 15px;
+      }
+    }
   }
   iframe {
     min-height: 25vh;

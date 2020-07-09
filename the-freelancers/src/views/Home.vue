@@ -377,7 +377,10 @@ export default {
   display: block;
   font-size: font_size_desktop(medium_pixel_size);
   line-height: 1em;
-
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.5) skewY(-10deg);
+  }
   > span {
     display: inline-block;
     vertical-align: middle;
