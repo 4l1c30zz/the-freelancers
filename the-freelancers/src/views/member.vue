@@ -426,8 +426,8 @@ export default {
       }
     }
   }
-  &.a{
-    .chev{
+  &.a {
+    .chev {
       z-index: 1;
     }
   }
