@@ -226,12 +226,18 @@ export default {
       for (var i of portfolioArrValues) {
         let portofiloObjectsVals = Object.values(i);
         let workTitle = portofiloObjectsVals[1];
-        full_html += "<div  class='portfolio__poject'>";
-        full_html += "<h3 class='pixel'>" + workTitle + "</h3>";
-
         let externalLink = portofiloObjectsVals[2];
         let youTubeLink = portofiloObjectsVals[3];
-        if (youTubeLink != null) {
+        if (externalLink != null) {
+          full_html += "<div class='portfolio__poject external'>";
+        } else if (youTubeLink) {
+          full_html += "<div class='portfolio__poject video'>";
+        } else {
+          full_html += "<div class='portfolio__poject image'>";
+        }
+        full_html += "<h3 class='pixel'>" + workTitle + "</h3>";
+
+        if (youTubeLink) {
           full_html += "<div class ='youtube'>" + youTubeLink + "</div>";
         }
         let imgArr = portofiloObjectsVals[4];
@@ -251,7 +257,7 @@ export default {
               "'/></div>";
           }
         }
-        if (externalLink != null) {
+        if (externalLink) {
           full_html +=
             "<a target='_blank' class='pixel portfolio__link' href='" +
             externalLink +
@@ -266,12 +272,16 @@ export default {
   mounted: function() {
     function classToggle() {
       console.log("created");
-      let portfolioProjects = document.querySelectorAll(".portfolio__poject");
+      let portfolioProjects = document.querySelectorAll(
+        ".portfolio__poject.image"
+      );
 
       portfolioProjects.forEach(portfolioProject => {
         portfolioProject.addEventListener("click", event => {
-          let targ = event.target.closest(".portfolio__poject");
+          let targ = event.target.closest(".portfolio__poject.image");
           console.log(targ);
+          let pholioParent = document.querySelector(".portfolio");
+          pholioParent.classList.toggle("a");
           targ.classList.toggle("a");
           let siblings = get_siblings(targ);
           siblings.forEach(sib => {
@@ -416,6 +426,11 @@ export default {
       }
     }
   }
+  &.a{
+    .chev{
+      z-index: 1;
+    }
+  }
   &.short {
     .portfolio__inner {
       justify-content: flex-end;
@@ -466,7 +481,7 @@ export default {
             width: 100%;
             max-width: 90%;
           }
-          &:after{
+          &:after {
             content: "x";
             font-family: font_family(pixel_font);
             font-size: 100px;
@@ -475,9 +490,9 @@ export default {
             top: 5%;
             right: 5%;
             color: color(_green);
-              -webkit-text-stroke-width: 4px;
-  -webkit-text-stroke-color: color(_black);
-  font-weight: bold;
+            -webkit-text-stroke-width: 4px;
+            -webkit-text-stroke-color: color(_black);
+            font-weight: bold;
           }
         }
       }

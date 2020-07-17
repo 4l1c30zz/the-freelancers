@@ -141,6 +141,7 @@ export default {
       }
     }
   },
+
   filters: {
     positionFetch: function(value) {
       let positionRowsArr = value;

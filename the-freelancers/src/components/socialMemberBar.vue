@@ -1,9 +1,13 @@
 <template>
   <ul v-if="socialMedia" class="socialSideBar">
-    <li @click="show_tooltip" class="socialMedia__email" v-if="socialMedia.email">
+    <li
+      @click="show_tooltip"
+      class="socialMedia__email"
+      v-if="socialMedia.email"
+    >
       <a>
         <span @click="copy_text" class="tooltip">
-          {{socialMedia.email}}
+          {{ socialMedia.email }}
         </span>
         <font-awesome-icon icon="at" size="lg" />
       </a>
@@ -53,37 +57,36 @@ export default {
   props: {
     socialMedia: Object
   },
-  methods:{
-    show_tooltip: function(event){
-      let targParent = event.target.closest('a');
-     // let tooltip = targParent.find('span');
-      var tooltip = targParent.querySelector('span');
-     tooltip.classList.toggle("a");
+  methods: {
+    show_tooltip: function(event) {
+      let targParent = event.target.closest("a");
+      // let tooltip = targParent.find('span');
+      var tooltip = targParent.querySelector("span");
+      tooltip.classList.toggle("a");
     },
     copy_text: function(event) {
-        console.log("text copy called");
-         let targ = event.target;
-               console.log(event.target);
+      console.log("text copy called");
+      let targ = event.target;
+      console.log(event.target);
 
-        let textToCopyVal = targ.innerHTML;
-          let el = document.createElement('textarea');
-          el.value = textToCopyVal;
-          el.setAttribute('readonly', '');
-          el.style.position = 'absolute';
-          el.style.left = '-300vw';
-          document.body.appendChild(el);
-          el.select();
-          document.execCommand('copy');
-          document.body.removeChild(el);
-          let message = document.createElement('div');
-          message.classList.add("message");
-          message.innerHTML = "text coppied to clipboard!";
-          document.body.appendChild(message);
-              setTimeout(function() {
-                message.remove();
-              }, 3000);
-          //messageElem = document.querySelector(".message");
-
+      let textToCopyVal = targ.innerHTML;
+      let el = document.createElement("textarea");
+      el.value = textToCopyVal;
+      el.setAttribute("readonly", "");
+      el.style.position = "absolute";
+      el.style.left = "-300vw";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      let message = document.createElement("div");
+      message.classList.add("message");
+      message.innerHTML = "text coppied to clipboard!";
+      document.body.appendChild(message);
+      setTimeout(function() {
+        message.remove();
+      }, 3000);
+      //messageElem = document.querySelector(".message");
     }
   },
   computed: {
@@ -99,14 +102,16 @@ export default {
 <style lang="scss">
 @import "@/scss/_variables.scss";
 @import "@/scss/_functions.scss";
-.message{
+.message {
   position: fixed;
-  top:50%;
   background: color(_black);
   color: color(_green);
+  font-family: font_family(pixel_font);
+  border: 5px solid color(_green);
   padding: 10px;
-  right: 10%;
   font-size: 50px;
+  right: 10%;
+  top: 30%;
 }
 .member1 {
   .socialSideBar li {
@@ -148,7 +153,7 @@ export default {
     transition: all 0.3s ease;
     color: color(_pink);
     position: relative;
-    .tooltip{
+    .tooltip {
       display: block;
       background: color(_black);
       position: absolute;
@@ -158,7 +163,7 @@ export default {
       transition: all ease 0.3s;
       height: 0;
       overflow: hidden;
-      &.a{
+      &.a {
         height: auto;
         padding: 5px;
       }
